@@ -59,7 +59,7 @@ public:
     list<string> getBFSPath(const Node& srcNode, const Node& destNode);
 
 private:
-    /** Adjacency list representation of the graph;
+    /** Adjacency list representation of the graph; 
     You can change the signature of this variable*/
     HashTable<int, list<Edge>> adjList;
 
@@ -68,17 +68,17 @@ private:
     HashTable<int, long> distance;
     HashTable<int, int> previous;
     HashTable<int, string> changekey;
-
+    
     list<int> activekeys;
-
+    
     struct pqentry {
         public:
             int id;
             long distance;
-
+            
             pqentry() : id(), distance(LONG_MAX) {}
     };
-
+    
     struct Compare {
         public:
             bool operator() (pqentry pqentry_l, pqentry pqentry_r) {
