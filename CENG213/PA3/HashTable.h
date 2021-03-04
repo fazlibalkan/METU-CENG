@@ -79,7 +79,7 @@ HashTable<K, T>::HashTable() {
     _capacity = 7;
     _size = 0;
     _table = new Bucket[_capacity];
-
+    
 }
 
 template <class K, class T>
@@ -142,102 +142,18 @@ HashTable<K, T>::~HashTable() {
     delete[] _table;
     _capacity = 0;
     _size = 0;
-
+    
 }
 
 template <class K, class T>
 void HashTable<K, T>::Insert(const K& key, const T& value) {
     // TODO: IMPLEMENT THIS FUNCTION.
-  /*
-    if (_size > (_capacity * 2 * 0.6)) {
-        int nc = NextCapacity(_capacity);
-        Resize(nc);
-    }
-
-    int index = Hash(key)%_capacity, b = 0;
-    if (!_table[index].entries[b].Active && !_table[index].entries[b].Deleted) {
-        _table[index].entries[b].Active = true;
-        _table[index].entries[b].Deleted = false;
-        _table[index].entries[b].Key = key;
-        _table[index].entries[b].Value = value;
-        _size++;
-    } else {
-        if (_table[(index)%_capacity].entries[b].Key == key) {
-            _table[(index)%_capacity].entries[b].Value = value;
-            return;
-        }
-        b++;
-        int i = 0, n = 0;
-        while ((_table[(index + i)%_capacity].entries[b].Active && _table[(index + i)%_capacity].entries[b].Key != key) || _table[(index + i)%_capacity].entries[b].Deleted) {
-            i = n*n;
-            n++;
-        }
-        if (_table[(index + i)%_capacity].entries[b].Active) {
-            _table[(index + i)%_capacity].entries[b].Value = value;
-        }  else {
-            _table[(index + i)%_capacity].entries[b].Key = key;
-            _table[(index + i)%_capacity].entries[b].Value = value;
-            _table[(index + i)%_capacity].entries[b].Active = true;
-            _table[(index + i)%_capacity].entries[b].Deleted = false;
-            _size++;
-        }
-    }
-
-    int notexists = 0;
 
     if (_size > (_capacity * 2 * 0.6)) {
         int nc = NextCapacity(_capacity);
         Resize(nc);
     }
-
-    try {
-        Get(key);
-    } catch (ItemNotFoundException a) {
-        notexists = 1;
-    }
-
-    int index = Hash(key)%_capacity, b = 0;
-    if (!notexists) {
-        if (_table[index].entries[b].Key == key) {
-            _table[index].entries[b].Value = value;
-            return;
-        }
-        b++;
-        int i = 0, n = 0;
-        while (_table[(index + i)%_capacity].entries[b].Key != key) {
-            i = n*n;
-            n++;
-        }
-        _table[(index + i)%_capacity].entries[b].Value = value;
-        return;
-    } else {
-        if (!_table[index].entries[b].Active) {
-            _table[index].entries[b].Active = true;
-            _table[index].entries[b].Deleted = false;
-            _table[index].entries[b].Key = key;
-            _table[index].entries[b].Value = value;
-            _size++;
-            return;
-        }
-        b++;
-        int i = 0, n = 0;
-        while (_table[(index + i)%_capacity].entries[b].Active) {
-            i = n*n;
-            n++;
-        }
-        _table[(index + i)%_capacity].entries[b].Key = key;
-        _table[(index + i)%_capacity].entries[b].Value = value;
-        _table[(index + i)%_capacity].entries[b].Active = true;
-        _table[(index + i)%_capacity].entries[b].Deleted = false;
-        _size++;
-
-    }
-        */
-    if (_size > (_capacity * 2 * 0.6)) {
-        int nc = NextCapacity(_capacity);
-        Resize(nc);
-    }
-
+    
     try {
         Get(key) = value;
     } catch (ItemNotFoundException a) {
@@ -267,7 +183,7 @@ void HashTable<K, T>::Insert(const K& key, const T& value) {
 template <class K, class T>
 void HashTable<K, T>::Delete(const K& key) {
     // TODO: IMPLEMENT THIS FUNCTION.
-
+    
     int i = 0, n = 0, b = 0;
     int index = Hash(key)%_capacity;
     if (!_table[index].entries[b].Active) {
@@ -292,13 +208,13 @@ void HashTable<K, T>::Delete(const K& key) {
             _size--;
         }
     }
-
+    
 }
 
 template <class K, class T>
 T& HashTable<K, T>::Get(const K& key) const {
-    // TODO: IMPLEMENT THIS FUNCTION.
-
+    // TODO: IMPLEMENT THIS FUNCTION. 
+    
     int i = 0, n = 0, b = 0;
     int index = Hash(key)%_capacity;
     if (!_table[index].entries[b].Active && !_table[index].entries[b].Deleted) {
@@ -318,7 +234,7 @@ T& HashTable<K, T>::Get(const K& key) const {
             throw ItemNotFoundException();
         }
     }
-
+    
 }
 
 
@@ -330,7 +246,6 @@ void HashTable<K, T>::Resize(int newCapacity) {
     _table = new Bucket[newCapacity];
     _capacity = newCapacity;
     _size=0;
-
     int index = 0, a = 0, n = 0, b = 0;
     for (int i = 0; i < oldcap; i++) {
         Bucket& bucket = oldtable[i];
@@ -356,9 +271,18 @@ void HashTable<K, T>::Resize(int newCapacity) {
                 _size++;
             }
         }
-
+        
     }
-
+    /*
+    for (int i = 0; i < oldcap; i++) {
+        Bucket& bucket = oldtable[i];
+        for (int j = 0; j < BUCKET_SIZE; j++) {
+            if (bucket.entries[j].Active) {
+                Insert(bucket.entries[j].Key, bucket.entries[j].Value);
+            }
+        }
+    }
+    */
     delete[] oldtable;
 }
 
