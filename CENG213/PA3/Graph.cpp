@@ -28,17 +28,18 @@ void Graph::addNode(const Node &node) {
     // TODO: IMPLEMENT THIS FUNCTION.
     list<Edge> emptylist;
     adjList.Insert(node.getVid(), emptylist);
+    
     mark.Insert(node.getVid(), 0);
-    distance.Insert(node.getVid(), INT_MAX);
+    distance.Insert(node.getVid(), LONG_MAX);
     previous.Insert(node.getVid(), NULL);
+    changekey.Insert(node.getVid(), node.getCountry());
+    activekeys.push_back(node.getVid());
 }
 
 void Graph::addConnection(const Node& headNode, const Node& tailNode, int import) {
     // TODO: IMPLEMENT THIS FUNCTION.
     Edge tail(tailNode, long(import));
     adjList.Get(headNode.getVid()).push_back(tail);
-
-    
 }
 
 list<Node> Graph::getAdjacentNodes(const Node& node) {
@@ -68,14 +69,9 @@ long Graph::getTotalImports(const Node& node) {
 }
 
 void Graph::deleteNode(const Node& node) {
-    // TODO: IMPLEMENT THIS FUNCTION.
-    
-    int size = adjList.Size();
-    int arr[size];
-    adjList.getKeys(arr);
-    
-    for (int a = 0; a < size; a++) {    
-        list<Edge> & le = adjList.Get(arr[a]);
+    typename list<int>::iterator iter = activekeys.begin();
+    while (iter != activekeys.end()) {
+        list<Edge> & le = adjList.Get(*iter);
         typename list<Edge>::iterator it = le.begin();
         
         while (it != le.end()) {
@@ -87,40 +83,82 @@ void Graph::deleteNode(const Node& node) {
                 ++it;
             }
         }
+        iter++;
     }
     
     adjList.Delete(node.getVid());
+    activekeys.remove(node.getVid());
+    
+    
 }
 
 list<string> Graph::findLeastCostPath(const Node& srcNode, const Node& destNode) {
-    // TODO: IMPLEMENT THIS FUNCTION.
-    priority_queue<int> pq;
+    typename list<int>::iterator iter = activekeys.begin();
+    while (iter != activekeys.end()) {
+        mark.Get(*iter) = 0;
+        distance.Get(*iter) = LONG_MAX;
+        previous.Get(*iter) = NULL;
+        iter++;
+    }
     
-    qentry qe;
-    qe.id = srcNode.getVid();
-    qe.distance = 0;
+    priority_queue<pqentry, vector<pqentry>, Compare> pq;
     
-    distance.Get(srcNode.getVid()) = 0;
+    pqentry pqe;
+    pqe.id = srcNode.getVid();
+    pqe.distance = 0;
+    distance.Get(pqe.id) = 0;
     
+    pq.push(pqe);
     
+    while (!pq.empty()) {
+        pqentry vertex = pq.top();
+        pq.pop();
+        
+        list<Edge> & tracing = adjList.Get(vertex.id);
+        typename list<Edge>::iterator it = tracing.begin();
+        
+        int distofcurrent = distance.Get(vertex.id);
+        for (int j = 0; j < tracing.size(); j++) {
+            int newdistance = distofcurrent + it->getImport();
+            
+            if (newdistance < distance.Get(it->getTailNode().getVid())) {
+                distance.Get(it->getTailNode().getVid()) = newdistance;
+                pqe.id = it->getTailNode().getVid();
+                pqe.distance = newdistance;
+                pq.push(pqe);
+                previous.Get(it->getTailNode().getVid()) = vertex.id;
+            }
+            it++;
+        }
+    }
     
+    list<string> leastcostpath;
     
+    int idnow = destNode.getVid();
+    leastcostpath.push_front(destNode.getCountry());
+    while ( idnow != srcNode.getVid() ) {
+        idnow = previous.Get(idnow);
+        leastcostpath.push_front(changekey.Get(idnow));
+    }
     
+    return leastcostpath;
 }
 
 
 bool Graph::isCyclic() {
-    // TODO: IMPLEMENT THIS FUNCTION.
-    int size = adjList.Size();
-    int arr[size];
-    adjList.getKeys(arr);
+    
+    typename list<int>::iterator iter = activekeys.begin();
+    while (iter != activekeys.end()) {
+        mark.Get(*iter) = 0;
+        iter++;
+    }
     
     stack<int> s;
     
-    for (int i = 0; i < size; i++) {
-        
-        if (mark.Get(arr[i]) == 0) {
-            s.push(arr[i]);
+    iter = activekeys.begin();
+    while (iter != activekeys.end()) {
+        if (mark.Get(*iter) == 0) {
+            s.push(*iter);
             mark.Insert(s.top(), 1);
             
             while (!s.empty()) {
@@ -129,15 +167,14 @@ bool Graph::isCyclic() {
                 typename list<Edge>::iterator it = tracing.begin();
                 
                 for (int j = 0; j < tracing.size(); j++) {
-                    if (mark.Get(it->getTailNode().getVid()) == 0) {
+                    if (mark.Get(it->getTailNode().getVid()) == 1) {
+                        return true;
+                    } else if (mark.Get(it->getTailNode().getVid()) == 0) {
                         a = it->getTailNode().getVid();
                         break;
-                    } else if (mark.Get(it->getTailNode().getVid()) == 1) {
-                        return true;
                     }
                     it++;
                 }
-                
                 if (a == -1) {
                     mark.Insert(s.top(), 2);
                     s.pop();
@@ -145,12 +182,11 @@ bool Graph::isCyclic() {
                     mark.Insert(a, 1);
                     s.push(a);
                 }
-                
             }
         }
         
+        iter++;
     }
-    
     
     return false;
 }
@@ -158,8 +194,13 @@ bool Graph::isCyclic() {
 
 list<string> Graph::getBFSPath(const Node& srcNode, const Node& destNode) {
     
-    list<string> l;
+    typename list<int>::iterator iter = activekeys.begin();
+    while (iter != activekeys.end()) {
+        mark.Get(*iter) = 0;
+        iter++;
+    }
     
+    list<string> l;
     queue<int> q;
     
     q.push(srcNode.getVid());
