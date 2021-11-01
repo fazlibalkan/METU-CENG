@@ -1,0 +1,29 @@
+Command line:
+   XOR_RAM_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  51091
+
+Sun Jun 20 14:49:38 2021
+
+
+ Elaboration Time: 0.015625 sec
+
+ Current Memory Usage: 806.887 Meg
+
+ Total Signals          : 16
+ Total Nets             : 40
+ Total Signal Drivers   : 6
+ Total Blocks           : 2
+ Total Primitive Blocks : 2
+ Total Processes        : 10
+ Total Traceable Variables  : 21
+ Total Scalar Nets and Variables : 224
+Total Line Count : 30
+
+ Total Simulation Time: 0.03125 sec
+
+ Current Memory Usage: 807.936 Meg
+
+Sun Jun 20 14:49:53 2021
+

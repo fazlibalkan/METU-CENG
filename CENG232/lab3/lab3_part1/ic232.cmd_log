@@ -1,0 +1,10 @@
+xst -intstyle ise -ifn "D:/CENG/2-2/CENG232/lab3/lab3_part1/ic232.xst" -ofn "D:/CENG/2-2/CENG232/lab3/lab3_part1/ic232.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc3s250e-cp132-5 ic232.ngc ic232.ngd  
+map -intstyle ise -p xc3s250e-cp132-5 -cm area -ir off -pr off -c 100 -o ic232_map.ncd ic232.ngd ic232.pcf 
+par -w -intstyle ise -ol high -t 1 ic232_map.ncd ic232.ncd ic232.pcf 
+trce -intstyle ise -v 3 -s 5 -n 3 -fastpaths -xml ic232.twx ic232.ncd -o ic232.twr ic232.pcf 
+xst -intstyle ise -ifn "D:/CENG/2-2/CENG232/lab3/lab3_part1/ic232.xst" -ofn "D:/CENG/2-2/CENG232/lab3/lab3_part1/ic232.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc3s250e-cp132-5 ic232.ngc ic232.ngd  
+map -intstyle ise -p xc3s250e-cp132-5 -cm area -ir off -pr off -c 100 -o ic232_map.ncd ic232.ngd ic232.pcf 
+par -w -intstyle ise -ol high -t 1 ic232_map.ncd ic232.ncd ic232.pcf 
+trce -intstyle ise -v 3 -s 5 -n 3 -fastpaths -xml ic232.twx ic232.ncd -o ic232.twr ic232.pcf 

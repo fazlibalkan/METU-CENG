@@ -1,0 +1,27 @@
+ISim log file
+Running: D:\CENG\2-2\CENG232\lab4\lab4_part2\testbench_isim_beh.exe -gui -tclbatch isim.cmd -wdb D:/CENG/2-2/CENG232/lab4/lab4_part2/testbench_isim_beh.wdb 
+ISim M.81d (signature 0xcb73ee62)
+WARNING: A WEBPACK license was found.
+WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+Time resolution is 1 ps
+# onerror resume
+# wave add /
+# run 1s
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+Case 0: Successfull!
+Case 1: Successfull!
+Case 2: Successfull!
+Case 3: Successfull!
+Case 4: Successfull!
+Case 5: Successfull!
+Case 6: Successfull!
+Case 7: Successfull!
+Case 8: Successfull!
+Case 9: Successfull!
+Case 10: Successfull!
+Time= 11:59:59, PM: 1, Remaining Time: 75, Green for A: 1, Green for B: 0, Number of Cars on RoadA: 0, Number of Cars on RoadB: 0, BlackList Display: 9 
+Time= 12:0:0, PM: 0, Remaining Time: 74, Green for A: 1, Green for B: 0, Number of Cars on RoadA: 0, Number of Cars on RoadB: 0, BlackList Display: 0 
+Stopped at time : 648100 ns : File "D:/CENG/2-2/CENG232/lab4/lab4_part2/testbench.v" Line 177

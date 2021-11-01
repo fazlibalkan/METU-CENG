@@ -1,0 +1,26 @@
+ISim log file
+Running: D:\CENG\2-2\CENG232\lab4\lab4_part1\lab4_part1\testbench_isim_beh.exe -gui -tclbatch isim.cmd -wdb D:/CENG/2-2/CENG232/lab4/lab4_part1/lab4_part1/testbench_isim_beh.wdb 
+ISim M.81d (signature 0xcb73ee62)
+WARNING: A WEBPACK license was found.
+WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
+WARNING: ISim will run in Lite mode. Please refer to the ISim documentation for more information on the differences between the Lite and the Full version.
+This is a Lite version of ISim.
+Time resolution is 1 ps
+# onerror resume
+# wave add /
+# run 1000 ns
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.
+Time=0 | mode=1 index=xxx number=xxxxxxxx clk=1 | result=xxxxxxxx 
+Time=5 | mode=1 index=xxx number=xxxxxxxx clk=0 | result=xxxxxxxx 
+Time=6 | mode=0 index=000 number=01011100 clk=0 | result=xxxxxxxx 
+Time=10 | mode=0 index=000 number=01011100 clk=1 | result=xxxxxxxx 
+Time=11 | mode=1 index=000 number=01011100 clk=1 | result=01011100 
+Time=15 | mode=1 index=000 number=01011100 clk=0 | result=01011100 
+Time=16 | mode=0 index=001 number=01011100 clk=0 | result=01011100 
+Time=17 | mode=1 index=001 number=01011100 clk=0 | result=00000000 
+Time=18 | mode=0 index=010 number=01011100 clk=0 | result=00000000 
+Time=20 | mode=0 index=010 number=01011100 clk=1 | result=00000000 
+Time=21 | mode=1 index=001 number=01011100 clk=1 | result=00000000 
+Time=25 | mode=1 index=010 number=01011100 clk=0 | result=11110110 
+Stopped at time : 26 ns : File "D:/CENG/2-2/CENG232/lab4/lab4_part1/lab4_part1/testbench.v" Line 63
